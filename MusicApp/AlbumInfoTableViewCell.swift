@@ -1,21 +1,26 @@
 //
-//  FavoritesTableViewCell.swift
+//  AlbumInfoTableViewCell.swift
 //  MusicApp
 //
-//  Created by Gabriela Zorzo on 18/06/21.
+//  Created by Gabriela Zorzo on 21/06/21.
 //
 
 import UIKit
 
-class FavoritesTableViewCell: UITableViewCell {
+class AlbumInfoTableViewCell: UITableViewCell {
+    
     
     @IBOutlet weak var coverImage: UIImageView!
     
-    @IBOutlet weak var nameLabel: UILabel!
+    @IBOutlet weak var titleLabel: UILabel!
     
     @IBOutlet weak var artistLabel: UILabel!
     
-    @IBOutlet weak var favoriteImage: UIImageView!
+    @IBOutlet weak var songsLabel: UILabel!
+    
+    @IBOutlet weak var releasedLabel: UILabel!
+    
+    @IBOutlet weak var aboutLabel: UILabel!
     
     override func awakeFromNib() {
         super.awakeFromNib()

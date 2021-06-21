@@ -7,7 +7,7 @@
 
 import UIKit
 
-class LibraryTableView: UIViewController, UITableViewDataSource {
+class LibraryTableView: UIViewController, UITableViewDataSource, UITableViewDelegate {
 
     @IBOutlet weak var tableView: UITableView!
     
@@ -17,6 +17,7 @@ class LibraryTableView: UIViewController, UITableViewDataSource {
         super.viewDidLoad()
         
         tableView.dataSource = self
+        tableView.delegate = self
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -36,6 +37,19 @@ class LibraryTableView: UIViewController, UITableViewDataSource {
         return cell
         
     }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        performSegue(withIdentifier: "DetailNavigation", sender: musicCollections[indexPath.row])
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        guard let collection = sender as? MusicCollection else { return }
+        
+        guard let nextViewController = segue.destination as? DetailsViewController else { return }
+        nextViewController.collection = collection
+        
+    }
+    
     
     
 }
