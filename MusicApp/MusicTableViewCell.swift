@@ -6,6 +6,9 @@
 //
 
 import UIKit
+protocol FavoriteMusicDelegate {
+    func toggleFavorite()
+}
 
 class MusicTableViewCell: UITableViewCell {
     
@@ -17,15 +20,23 @@ class MusicTableViewCell: UITableViewCell {
     
     @IBOutlet weak var favoriteImage: UIImageView!
     
+    var delegate: FavoriteMusicDelegate?
+    
     override func awakeFromNib() {
         super.awakeFromNib()
-        // Initialization code
+        
+        
+        favoriteImage.isUserInteractionEnabled = true
+        favoriteImage.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(onFavoriteClick(tapGestureRecognizer:))))
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
 
-        // Configure the view for the selected state
+    }
+    
+    @objc func onFavoriteClick(tapGestureRecognizer: UITapGestureRecognizer) {
+        delegate?.toggleFavorite()
     }
 
 }

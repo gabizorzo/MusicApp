@@ -65,17 +65,30 @@ class DetailsViewController: UIViewController, UITableViewDataSource, UITableVie
         cell.nameLabel.text = actualMusic.title
         cell.artistLabel.text = actualMusic.artist
         cell.coverImage.image = UIImage(named: actualMusic.id)
+       // cell.delegate = self
         
         return cell
     }
     
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        performSegue(withIdentifier: "DetailsToPlaying", sender: collection?.musics[indexPath.row])
+    }
+    
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        guard let collection = sender as? MusicCollection? else { return }
+        if let collection = sender as? MusicCollection? {
         
         guard let nextViewController = segue.destination as? UINavigationController else { return }
         guard let nextScreen = nextViewController.viewControllers.first! as? AboutViewController else {return}
         
         nextScreen.musicCollection = collection
+        } else if let music = sender as? Music? {
+            
+            guard let nextViewController = segue.destination as? UINavigationController else { return }
+            guard let nextScreen = nextViewController.viewControllers.first! as? PlayingViewController else {return}
+            
+            nextScreen.music = music
+        }
+        
         
         
     }
