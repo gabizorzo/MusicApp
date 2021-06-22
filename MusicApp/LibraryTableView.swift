@@ -11,7 +11,10 @@ class LibraryTableView: UIViewController, UITableViewDataSource, UITableViewDele
 
     @IBOutlet weak var tableView: UITableView!
     
-    private var musicCollections: [MusicCollection] = try! MusicService().loadLibrary()
+    public static var service: MusicService = try! MusicService()
+    
+    private var musicCollections: [MusicCollection] = service.loadLibrary()
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()

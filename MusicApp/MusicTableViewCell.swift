@@ -6,9 +6,6 @@
 //
 
 import UIKit
-protocol FavoriteMusicDelegate {
-    func toggleFavorite()
-}
 
 class MusicTableViewCell: UITableViewCell {
     
@@ -20,7 +17,7 @@ class MusicTableViewCell: UITableViewCell {
     
     @IBOutlet weak var favoriteImage: UIImageView!
     
-    var delegate: FavoriteMusicDelegate?
+    var onToggleFavorite: (() -> Void)?
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -36,7 +33,7 @@ class MusicTableViewCell: UITableViewCell {
     }
     
     @objc func onFavoriteClick(tapGestureRecognizer: UITapGestureRecognizer) {
-        delegate?.toggleFavorite()
+        onToggleFavorite?()
     }
 
 }

@@ -61,11 +61,21 @@ class DetailsViewController: UIViewController, UITableViewDataSource, UITableVie
         let cell = tableView.dequeueReusableCell(withIdentifier: "MusicCell", for: indexPath) as! MusicTableViewCell
         
         guard let actualMusic = collection?.musics[indexPath.row] else { fatalError("Problem with finding collection") }
+        let isFavorite: Bool = LibraryTableView.service.favoriteMusics.filter({ $0.id == actualMusic.id}).count > 0
         
         cell.nameLabel.text = actualMusic.title
         cell.artistLabel.text = actualMusic.artist
         cell.coverImage.image = UIImage(named: actualMusic.id)
-       // cell.delegate = self
+        cell.onToggleFavorite = { [weak self] in
+            LibraryTableView.service.toggleFavorite(music: actualMusic, isFavorite: !isFavorite)
+            self?.tableView.reloadData()
+        }
+        
+        if isFavorite {
+            cell.favoriteImage.image = UIImage(systemName: "heart.fill")?.withTintColor(.systemRed, renderingMode: .alwaysOriginal)
+        } else {
+            cell.favoriteImage.image = UIImage(systemName: "heart")
+        }
         
         return cell
     }
