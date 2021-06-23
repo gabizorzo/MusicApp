@@ -52,6 +52,20 @@ class DetailsViewController: UIViewController, UITableViewDataSource, UITableVie
         }
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        loadCollection()
+        
+        tableView.reloadData()
+    }
+    
+    func loadCollection() {
+        guard let collection = collection else {return}
+        let updatedCollection = LibraryTableView.service.getCollection(id: collection.id)
+        self.collection = updatedCollection
+    }
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return collection?.musics.count ?? 0
     }
@@ -103,5 +117,16 @@ class DetailsViewController: UIViewController, UITableViewDataSource, UITableVie
         
     }
  
+    func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
+        return collection?.type == .playlist
+    }
+    
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+        if editingStyle == UITableViewCell.EditingStyle.delete {
+            LibraryTableView.service.removeMusic(collection!.musics[indexPath.row], from: collection!)
+            loadCollection()
+            self.tableView.deleteRows(at: [indexPath], with: .automatic)
+        }
+    }
 
 }

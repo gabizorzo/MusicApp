@@ -7,38 +7,52 @@
 
 import UIKit
 
-class FavoritesViewController: UIViewController, UITableViewDataSource {
+class FavoritesViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
     
-
+    
     @IBOutlet weak var tableView: UITableView!
     
     private var favorites: [Music] = []
     
+    let emptyImage = UIImageView(image: UIImage(named: "emptystatefavorites"))
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        favorites = LibraryTableView.service.favoriteMusics
-        
-        if favorites.isEmpty {
-            createEmptyState()
-        }
-
         tableView.dataSource = self
+        tableView.delegate = self
         
     }
     
-    func createEmptyState() {
-        tableView.removeFromSuperview()
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
         
-        let emptyImage = UIImageView(image: UIImage(named: "emptystatefavorites"))
+        loadFavorites()
         
-        emptyImage.translatesAutoresizingMaskIntoConstraints = false
-        
-        self.view.addSubview(emptyImage)
-        
-        NSLayoutConstraint.activate([emptyImage.centerXAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.centerXAnchor),
-                                     emptyImage.centerYAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.centerYAnchor)])
+        tableView.reloadData()
     }
+    
+    func loadFavorites(){
+        favorites = LibraryTableView.service.favoriteMusics
+        
+        emptyState()
+    }
+    
+    func emptyState() {
+
+        if(favorites.isEmpty) {
+            emptyImage.translatesAutoresizingMaskIntoConstraints = false
+            
+            self.view.addSubview(emptyImage)
+            
+            NSLayoutConstraint.activate([emptyImage.centerXAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.centerXAnchor),
+                                         emptyImage.centerYAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.centerYAnchor)])
+        } else {
+            emptyImage.removeFromSuperview()
+        }
+    }
+    
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return favorites.count
@@ -58,12 +72,8 @@ class FavoritesViewController: UIViewController, UITableViewDataSource {
         cell.onToggleFavorite = { [weak self] in
             LibraryTableView.service.toggleFavorite(music: actualMusic, isFavorite: !isFavorite)
             self?.favorites.remove(at: indexPath.row)
-            self?.tableView.reloadData()
-            if let test = self {
-                if test.favorites.isEmpty{
-                    self?.createEmptyState()
-                }
-            }
+            self?.tableView.deleteRows(at: [indexPath], with: .automatic)
+            self?.emptyState()
         }
         
         if isFavorite {
@@ -74,5 +84,19 @@ class FavoritesViewController: UIViewController, UITableViewDataSource {
         
         return cell
     }
-
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        performSegue(withIdentifier: "FavoritesToPlaying", sender: favorites[indexPath.row])
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if let music = sender as? Music? {
+            
+            guard let nextViewController = segue.destination as? UINavigationController else { return }
+            guard let nextScreen = nextViewController.viewControllers.first! as? PlayingViewController else {return}
+            
+            nextScreen.music = music
+        }
+    }
+    
 }

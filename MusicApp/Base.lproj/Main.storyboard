@@ -636,7 +636,7 @@
                                         <rect key="frame" x="20" y="513.5" width="374" height="64"/>
                                         <subviews>
                                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="top" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="Zpn-Rh-sD4">
-                                                <rect key="frame" x="0.0" y="0.0" width="328.5" height="64"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="329" height="64"/>
                                                 <subviews>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="[Nome música]" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="SdD-pb-uG4">
                                                         <rect key="frame" x="0.0" y="0.0" width="194" height="33.5"/>
@@ -652,14 +652,21 @@
                                                     </label>
                                                 </subviews>
                                             </stackView>
-                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="58x-fy-Hom">
-                                                <rect key="frame" x="348.5" y="14" width="25.5" height="36"/>
+                                            <button opaque="NO" contentMode="scaleAspectFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="58x-fy-Hom">
+                                                <rect key="frame" x="349" y="14" width="25" height="36"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="width" constant="25" id="0Su-rE-QbT"/>
+                                                    <constraint firstAttribute="height" constant="36" id="aVn-XD-WwZ"/>
+                                                </constraints>
                                                 <fontDescription key="fontDescription" type="system" pointSize="30"/>
                                                 <color key="tintColor" systemColor="systemRedColor"/>
                                                 <state key="normal">
                                                     <color key="titleColor" systemColor="systemRedColor"/>
                                                     <imageReference key="image" image="heart.fill" catalog="system" symbolScale="large"/>
                                                 </state>
+                                                <connections>
+                                                    <action selector="toggleFavorite:" destination="rWh-zg-2iI" eventType="touchUpInside" id="2iG-V1-ggo"/>
+                                                </connections>
                                             </button>
                                         </subviews>
                                     </stackView>
@@ -787,6 +794,7 @@
                         <outlet property="artistLabel" destination="RiR-5W-vyD" id="cAe-cL-UxL"/>
                         <outlet property="coverImage" destination="Nwn-HQ-qaS" id="z3L-jZ-6Qw"/>
                         <outlet property="currentTime" destination="K25-NZ-b53" id="k8d-ay-LzD"/>
+                        <outlet property="favoriteButton" destination="58x-fy-Hom" id="SVK-jp-phS"/>
                         <outlet property="nextButton" destination="xPR-2B-SLn" id="uTI-8N-U4F"/>
                         <outlet property="playButton" destination="VQn-iV-anB" id="yyR-v1-Jyy"/>
                         <outlet property="prevButton" destination="ALT-1T-eQX" id="QBG-J7-If0"/>

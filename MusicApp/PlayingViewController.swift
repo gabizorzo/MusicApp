@@ -31,7 +31,16 @@ class PlayingViewController: UIViewController {
     
     @IBOutlet weak var prevButton: UIImageView!
     
+    @IBOutlet weak var favoriteButton: UIButton!
+    
     var music: Music?
+    
+    
+    @IBAction func toggleFavorite(_ sender: UIButton) {
+        LibraryTableView.service.toggleFavorite(music: music!, isFavorite: !checkIsFavorite())
+        
+        updateFavoriteButton()
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -54,6 +63,29 @@ class PlayingViewController: UIViewController {
         statusBar.setThumbImage(UIImage(systemName: "circle.fill"), for: .normal)
         statusBar.setThumbImage(UIImage(systemName: "circle.fill"), for: .highlighted)
         
+        updateFavoriteButton()
+        
+    }
+    
+    func checkIsFavorite() -> Bool {
+        guard let music = music else {return false}
+        
+        let isFavorite: Bool = LibraryTableView.service.favoriteMusics.filter({ $0.id == music.id}).count > 0
+        
+        return isFavorite
+    }
+    
+    func updateFavoriteButton(){
+        let size: CGSize = CGSize(width: 50, height: 50)
+        if checkIsFavorite() {
+            let heart: UIImage = UIImage(systemName: "heart.fill")!.withTintColor(.systemRed, renderingMode: .alwaysOriginal)
+            favoriteButton.setImage(heart, for: .normal)
+        } else {
+            let heart: UIImage = UIImage(systemName: "heart")!.withTintColor(.secondaryLabel, renderingMode: .alwaysOriginal)
+            favoriteButton.setImage(heart, for: .normal)
+        }
+
+       
     }
     
     @objc func playTapped(tapGestureRecognizer: UITapGestureRecognizer) {
