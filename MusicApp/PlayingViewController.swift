@@ -76,16 +76,17 @@ class PlayingViewController: UIViewController {
     }
     
     func updateFavoriteButton(){
-        let size: CGSize = CGSize(width: 50, height: 50)
         if checkIsFavorite() {
-            let heart: UIImage = UIImage(systemName: "heart.fill")!.withTintColor(.systemRed, renderingMode: .alwaysOriginal)
-            favoriteButton.setImage(heart, for: .normal)
+//            let heart: UIImage = UIImage(systemName: "heart.fill")!.withTintColor(.systemRed, renderingMode: .alwaysOriginal)
+//            favoriteButton.setImage(heart, for: .normal)
+            favoriteButton.isSelected = true
+            favoriteButton.tintColor = UIColor.red
         } else {
-            let heart: UIImage = UIImage(systemName: "heart")!.withTintColor(.secondaryLabel, renderingMode: .alwaysOriginal)
-            favoriteButton.setImage(heart, for: .normal)
+//            let heart: UIImage = UIImage(systemName: "heart")!.withTintColor(.secondaryLabel, renderingMode: .alwaysOriginal)
+//            favoriteButton.setImage(heart, for: .normal)
+            favoriteButton.isSelected = false
+            favoriteButton.tintColor = UIColor.secondaryLabel
         }
-
-       
     }
     
     @objc func playTapped(tapGestureRecognizer: UITapGestureRecognizer) {

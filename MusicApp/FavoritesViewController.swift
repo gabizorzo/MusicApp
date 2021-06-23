@@ -7,8 +7,10 @@
 
 import UIKit
 
-class FavoritesViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
+class FavoritesViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, UISearchBarDelegate, UIAdaptivePresentationControllerDelegate {
     
+    
+    @IBOutlet weak var searchBar: UISearchBar!
     
     @IBOutlet weak var tableView: UITableView!
     
@@ -22,6 +24,7 @@ class FavoritesViewController: UIViewController, UITableViewDataSource, UITableV
         
         tableView.dataSource = self
         tableView.delegate = self
+        searchBar.delegate = self
         
     }
     
@@ -30,6 +33,19 @@ class FavoritesViewController: UIViewController, UITableViewDataSource, UITableV
         
         loadFavorites()
         
+        tableView.reloadData()
+    }
+    
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        loadFavorites()
+        
+        if !searchText.isEmpty {
+            print(searchText)
+            self.favorites = self.favorites.filter({ music in
+                return music.title.lowercased().contains(searchText.lowercased()) ||  music.artist.lowercased().contains(searchText.lowercased())
+            })
+        }
+
         tableView.reloadData()
     }
     
@@ -95,8 +111,15 @@ class FavoritesViewController: UIViewController, UITableViewDataSource, UITableV
             guard let nextViewController = segue.destination as? UINavigationController else { return }
             guard let nextScreen = nextViewController.viewControllers.first! as? PlayingViewController else {return}
             
+            nextViewController.presentationController?.delegate = self
+            
             nextScreen.music = music
         }
+    }
+    
+    func presentationControllerWillDismiss(_ presentationController: UIPresentationController) {
+        loadFavorites()
+        tableView.reloadData()
     }
     
 }

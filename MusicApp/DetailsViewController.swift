@@ -7,7 +7,7 @@
 
 import UIKit
 
-class DetailsViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
+class DetailsViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, UIAdaptivePresentationControllerDelegate  {
     
     @IBOutlet weak var infoButton: UIBarButtonItem!
     
@@ -110,6 +110,8 @@ class DetailsViewController: UIViewController, UITableViewDataSource, UITableVie
             guard let nextViewController = segue.destination as? UINavigationController else { return }
             guard let nextScreen = nextViewController.viewControllers.first! as? PlayingViewController else {return}
             
+            nextViewController.presentationController?.delegate = self
+            
             nextScreen.music = music
         }
         
@@ -127,6 +129,11 @@ class DetailsViewController: UIViewController, UITableViewDataSource, UITableVie
             loadCollection()
             self.tableView.deleteRows(at: [indexPath], with: .automatic)
         }
+    }
+    
+    func presentationControllerWillDismiss(_ presentationController: UIPresentationController) {
+        loadCollection()
+        tableView.reloadData()
     }
 
 }
