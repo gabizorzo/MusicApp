@@ -96,6 +96,20 @@
                                 </prototypes>
                                 <sections/>
                             </tableView>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="C5q-5q-f5N">
+                                <rect key="frame" x="0.0" y="752" width="414" height="1"/>
+                                <color key="backgroundColor" systemColor="systemGray5Color"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="1" id="KWA-r2-BUO"/>
+                                </constraints>
+                            </view>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Qns-yr-SyT" customClass="NowPlayingView" customModule="MusicApp" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="753" width="414" height="60"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="60" id="ctY-XL-ep9"/>
+                                </constraints>
+                            </view>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
@@ -104,13 +118,21 @@
                             <constraint firstItem="Fw0-rl-O1o" firstAttribute="bottom" secondItem="6Tk-OE-BBY" secondAttribute="bottom" id="8vo-NS-So8"/>
                             <constraint firstItem="Fw0-rl-O1o" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="9ZR-VR-tmc"/>
                             <constraint firstItem="Fw0-rl-O1o" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="trailing" id="CEG-wS-VPa"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="Qns-yr-SyT" secondAttribute="bottom" id="EQQ-Te-Daj"/>
+                            <constraint firstAttribute="trailing" secondItem="C5q-5q-f5N" secondAttribute="trailing" id="FG3-Ce-JET"/>
                             <constraint firstItem="wqG-KA-DnW" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="trailing" constant="20" id="OMY-bQ-oDM"/>
+                            <constraint firstItem="C5q-5q-f5N" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="TBU-Ky-gXD"/>
                             <constraint firstItem="Fw0-rl-O1o" firstAttribute="top" secondItem="wqG-KA-DnW" secondAttribute="bottom" id="XFc-0y-NoK"/>
+                            <constraint firstItem="Qns-yr-SyT" firstAttribute="top" secondItem="C5q-5q-f5N" secondAttribute="bottom" id="knz-we-CdT"/>
                             <constraint firstItem="wqG-KA-DnW" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="oaq-fH-nF5"/>
+                            <constraint firstItem="Qns-yr-SyT" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="rMD-xv-rWF"/>
+                            <constraint firstItem="Qns-yr-SyT" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="trailing" id="zjn-DB-AJ5"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="Favorites" id="4dL-UN-RSW"/>
                     <connections>
+                        <outlet property="nowPlayingView" destination="Qns-yr-SyT" id="Hxl-BA-oqY"/>
+                        <outlet property="nowPlayingViewLine" destination="C5q-5q-f5N" id="ox8-Yn-GSY"/>
                         <outlet property="searchBar" destination="wqG-KA-DnW" id="iEG-Iw-0IL"/>
                         <outlet property="tableView" destination="Fw0-rl-O1o" id="cVE-Ng-w2u"/>
                         <segue destination="192-KM-nMM" kind="presentation" identifier="FavoritesToPlaying" id="WjV-xI-rSR"/>
@@ -206,18 +228,41 @@
                                 </prototypes>
                                 <sections/>
                             </tableView>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="WOy-4x-jH3">
+                                <rect key="frame" x="0.0" y="752" width="414" height="1"/>
+                                <color key="backgroundColor" systemColor="systemGray5Color"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="1" id="nn8-pq-6SU"/>
+                                </constraints>
+                            </view>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="k8V-Et-eyy" customClass="NowPlayingView" customModule="MusicApp" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="753" width="414" height="60"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="60" id="6hz-yf-Wpp"/>
+                                </constraints>
+                            </view>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="Ygq-4V-ABE"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
+                            <constraint firstItem="k8V-Et-eyy" firstAttribute="bottom" secondItem="Ygq-4V-ABE" secondAttribute="bottom" id="0w6-LQ-aiL"/>
+                            <constraint firstItem="k8V-Et-eyy" firstAttribute="top" secondItem="WOy-4x-jH3" secondAttribute="bottom" id="8gB-EG-fdh"/>
+                            <constraint firstAttribute="trailing" secondItem="WOy-4x-jH3" secondAttribute="trailing" id="ER7-Zx-azo"/>
                             <constraint firstItem="Ggq-cX-7jN" firstAttribute="bottom" secondItem="Ygq-4V-ABE" secondAttribute="bottom" id="Rhx-t2-ECT"/>
                             <constraint firstItem="Ggq-cX-7jN" firstAttribute="trailing" secondItem="Ygq-4V-ABE" secondAttribute="trailing" id="Tqe-as-0DI"/>
+                            <constraint firstItem="WOy-4x-jH3" firstAttribute="leading" secondItem="byi-RU-tf2" secondAttribute="leading" id="U4F-0S-Z2i"/>
                             <constraint firstItem="Ggq-cX-7jN" firstAttribute="leading" secondItem="Ygq-4V-ABE" secondAttribute="leading" id="URp-Tx-nAd"/>
+                            <constraint firstItem="k8V-Et-eyy" firstAttribute="leading" secondItem="Ygq-4V-ABE" secondAttribute="leading" id="Uic-Cm-9iz"/>
+                            <constraint firstItem="k8V-Et-eyy" firstAttribute="trailing" secondItem="Ygq-4V-ABE" secondAttribute="trailing" id="mHo-mt-mpZ"/>
+                            <constraint firstItem="k8V-Et-eyy" firstAttribute="centerX" secondItem="byi-RU-tf2" secondAttribute="centerX" id="rRx-A1-bGS"/>
                             <constraint firstItem="Ggq-cX-7jN" firstAttribute="top" secondItem="Ygq-4V-ABE" secondAttribute="top" id="ydD-hR-zY2"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="Library" largeTitleDisplayMode="always" id="56D-YA-0Za"/>
                     <connections>
+                        <outlet property="nowPlayingView" destination="k8V-Et-eyy" id="sMU-Li-ujf"/>
+                        <outlet property="nowPlayingViewLine" destination="WOy-4x-jH3" id="QqB-RB-AM8"/>
                         <outlet property="tableView" destination="Ggq-cX-7jN" id="Wy0-FJ-KRo"/>
                         <segue destination="mIs-UG-8eM" kind="show" identifier="DetailNavigation" id="mZo-Ua-k56"/>
                     </connections>
@@ -289,7 +334,6 @@
                 <viewController title="Details" id="mIs-UG-8eM" customClass="DetailsViewController" customModule="MusicApp" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Zp8-JJ-T36">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <stackView opaque="NO" contentMode="scaleToFill" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="hUm-PZ-auB">
                                 <rect key="frame" x="20" y="108" width="374" height="120"/>
@@ -423,16 +467,37 @@
                                 </prototypes>
                                 <sections/>
                             </tableView>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="7Jy-Hv-BLR" customClass="NowPlayingView" customModule="MusicApp" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="753" width="414" height="60"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="60" id="E4H-rp-UT1"/>
+                                    <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="60" id="fbo-iR-RCg"/>
+                                </constraints>
+                            </view>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Da7-AA-mAa">
+                                <rect key="frame" x="0.0" y="752" width="414" height="1"/>
+                                <color key="backgroundColor" systemColor="systemGray5Color"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="1" id="7UO-c4-U9q"/>
+                                </constraints>
+                            </view>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="mVy-3I-Jze"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
+                            <constraint firstItem="7Jy-Hv-BLR" firstAttribute="leading" secondItem="mVy-3I-Jze" secondAttribute="leading" id="1Jw-m8-NuO"/>
                             <constraint firstItem="hUm-PZ-auB" firstAttribute="leading" secondItem="mVy-3I-Jze" secondAttribute="leading" constant="20" id="8Jc-eU-80A"/>
                             <constraint firstItem="g6h-xN-MGa" firstAttribute="bottom" secondItem="mVy-3I-Jze" secondAttribute="bottom" id="A7r-Tt-Sya"/>
                             <constraint firstItem="mVy-3I-Jze" firstAttribute="trailing" secondItem="hUm-PZ-auB" secondAttribute="trailing" constant="20" id="Goo-se-fF8"/>
+                            <constraint firstItem="7Jy-Hv-BLR" firstAttribute="trailing" secondItem="mVy-3I-Jze" secondAttribute="trailing" id="HSZ-dz-PU2"/>
+                            <constraint firstItem="Da7-AA-mAa" firstAttribute="leading" secondItem="Zp8-JJ-T36" secondAttribute="leading" id="JQs-LT-YVX"/>
                             <constraint firstItem="g6h-xN-MGa" firstAttribute="trailing" secondItem="mVy-3I-Jze" secondAttribute="trailing" id="Wl3-dn-8Y2"/>
+                            <constraint firstAttribute="trailing" secondItem="Da7-AA-mAa" secondAttribute="trailing" id="dGq-Lc-V8A"/>
                             <constraint firstItem="g6h-xN-MGa" firstAttribute="leading" secondItem="mVy-3I-Jze" secondAttribute="leading" id="iTL-ET-mNL"/>
+                            <constraint firstItem="mVy-3I-Jze" firstAttribute="bottom" secondItem="7Jy-Hv-BLR" secondAttribute="bottom" id="n9j-qp-7B4"/>
                             <constraint firstItem="hUm-PZ-auB" firstAttribute="top" secondItem="mVy-3I-Jze" secondAttribute="top" constant="20" id="pvR-AV-cSU"/>
+                            <constraint firstItem="7Jy-Hv-BLR" firstAttribute="top" secondItem="Da7-AA-mAa" secondAttribute="bottom" id="sOs-Pm-pm3"/>
                             <constraint firstItem="g6h-xN-MGa" firstAttribute="top" secondItem="hUm-PZ-auB" secondAttribute="bottom" constant="5" id="ssf-QL-N6T"/>
                         </constraints>
                     </view>
@@ -448,6 +513,8 @@
                         <outlet property="collectionLabel" destination="6EB-mW-y6e" id="Wd5-8f-z8g"/>
                         <outlet property="coverImage" destination="g2V-wX-JPf" id="3ib-m0-ygE"/>
                         <outlet property="infoButton" destination="o03-13-Rp3" id="I1Z-Sm-PQh"/>
+                        <outlet property="nowPlayingView" destination="7Jy-Hv-BLR" id="s8H-jJ-Zq4"/>
+                        <outlet property="nowPlayingViewLine" destination="Da7-AA-mAa" id="Cnq-F2-3iG"/>
                         <outlet property="numberLabel" destination="XOo-eB-vks" id="Or1-Wj-5uT"/>
                         <outlet property="releasedLabel" destination="UDf-Xt-GY6" id="Vhq-PZ-ZzF"/>
                         <outlet property="tableView" destination="g6h-xN-MGa" id="9zO-lf-yPf"/>
@@ -869,6 +936,9 @@
         </systemColor>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+        <systemColor name="systemGray5Color">
+            <color red="0.89803921568627454" green="0.89803921568627454" blue="0.91764705882352937" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
     </resources>
 </document>

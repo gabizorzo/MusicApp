@@ -7,7 +7,9 @@
 
 import UIKit
 
-class DetailsViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, UIAdaptivePresentationControllerDelegate  {
+class DetailsViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, UIAdaptivePresentationControllerDelegate,UINavigationControllerDelegate  {
+    
+    var previousScreen: LibraryTableView?
     
     @IBOutlet weak var infoButton: UIBarButtonItem!
     
@@ -29,6 +31,10 @@ class DetailsViewController: UIViewController, UITableViewDataSource, UITableVie
 
     @IBOutlet weak var tableView: UITableView!
     
+    @IBOutlet weak var nowPlayingView: NowPlayingView!
+    
+    @IBOutlet weak var nowPlayingViewLine: UIView!
+
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -50,6 +56,14 @@ class DetailsViewController: UIViewController, UITableViewDataSource, UITableVie
         if collection?.type != .album {
             infoButton.isEnabled = false
         }
+        
+        nowPlayingView.isUserInteractionEnabled = true
+        nowPlayingView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(playingTapped(tapGestureRecognizer:))))
+        
+        if nowPlayingView.music == nil {
+            nowPlayingView.isHidden = true
+            nowPlayingViewLine.isHidden = true
+        }
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -57,7 +71,24 @@ class DetailsViewController: UIViewController, UITableViewDataSource, UITableVie
         
         loadCollection()
         
+        guard let playMusic = LibraryTableView.service.queue.nowPlaying else {
+            nowPlayingViewLine.isHidden = true
+            nowPlayingView.isHidden = true
+            return
+        }
+        
+        nowPlayingViewLine.isHidden = false
+        nowPlayingView.isHidden = false
+        nowPlayingView.music = playMusic
+        nowPlayingView.artistLabel.text = playMusic.artist
+        nowPlayingView.coverImage.image = UIImage(named: playMusic.id)
+        nowPlayingView.songLabel.text = playMusic.title
+        
         tableView.reloadData()
+    }
+    
+    @objc func playingTapped(tapGestureRecognizer: UITapGestureRecognizer) {
+        performSegue(withIdentifier: "DetailsToPlaying", sender: nowPlayingView.music)
     }
     
     func loadCollection() {
@@ -95,7 +126,15 @@ class DetailsViewController: UIViewController, UITableViewDataSource, UITableVie
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        performSegue(withIdentifier: "DetailsToPlaying", sender: collection?.musics[indexPath.row])
+        
+        guard let collection = collection else {return}
+        
+        let playMusic = collection.musics[indexPath.row]
+        
+        LibraryTableView.service.startPlaying(music: playMusic)
+        
+       viewWillAppear(false)
+    
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -135,5 +174,6 @@ class DetailsViewController: UIViewController, UITableViewDataSource, UITableVie
         loadCollection()
         tableView.reloadData()
     }
+    
 
 }

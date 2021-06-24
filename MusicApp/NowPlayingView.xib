@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="18122" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="18093"/>
+        <capability name="Named colors" minToolsVersion="9.0"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="NowPlayingView" customModule="MusicApp" customModuleProvider="target">
+            <connections>
+                <outlet property="artistLabel" destination="sjo-Gv-JvX" id="OXa-5g-d7w"/>
+                <outlet property="coverImage" destination="gaF-7r-dHZ" id="TPG-kS-IGw"/>
+                <outlet property="playButton" destination="DBQ-ul-rP4" id="3Mi-NX-0H7"/>
+                <outlet property="songLabel" destination="aud-XU-JVw" id="0gw-R6-I5R"/>
+                <outlet property="view" destination="7zK-2y-i8f" id="Od2-b8-bkp"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="7zK-2y-i8f">
+            <rect key="frame" x="0.0" y="0.0" width="414" height="60"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <subviews>
+                <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="PSg-vV-Uq9">
+                    <rect key="frame" x="70" y="13" width="284" height="34"/>
+                    <subviews>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="[Song Name]" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="aud-XU-JVw">
+                            <rect key="frame" x="0.0" y="0.0" width="284" height="19.5"/>
+                            <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="16"/>
+                            <nil key="textColor"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="[Artist Name]" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="sjo-Gv-JvX">
+                            <rect key="frame" x="0.0" y="19.5" width="284" height="14.5"/>
+                            <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="12"/>
+                            <color key="textColor" systemColor="secondaryLabelColor"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                    </subviews>
+                </stackView>
+                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="pause.circle.fill" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="DBQ-ul-rP4">
+                    <rect key="frame" x="364" y="15.5" width="30" height="29"/>
+                    <color key="tintColor" name="AccentColor"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="30" id="CYf-w6-muh"/>
+                        <constraint firstAttribute="height" constant="30" id="zDr-Nu-yuf"/>
+                    </constraints>
+                </imageView>
+                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="07f3fdeaaf7c7c55c061" translatesAutoresizingMaskIntoConstraints="NO" id="gaF-7r-dHZ">
+                    <rect key="frame" x="0.0" y="0.0" width="60" height="60"/>
+                    <constraints>
+                        <constraint firstAttribute="width" secondItem="gaF-7r-dHZ" secondAttribute="height" multiplier="1:1" id="B8b-ci-0bG"/>
+                    </constraints>
+                </imageView>
+            </subviews>
+            <viewLayoutGuide key="safeArea" id="HEk-1S-VMe"/>
+            <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+            <constraints>
+                <constraint firstItem="DBQ-ul-rP4" firstAttribute="leading" secondItem="PSg-vV-Uq9" secondAttribute="trailing" constant="10" id="WO2-3o-bzI"/>
+                <constraint firstItem="gaF-7r-dHZ" firstAttribute="leading" secondItem="HEk-1S-VMe" secondAttribute="leading" id="X5u-oa-6Wq"/>
+                <constraint firstAttribute="trailing" secondItem="DBQ-ul-rP4" secondAttribute="trailing" constant="20" id="XHh-vc-Chr"/>
+                <constraint firstItem="HEk-1S-VMe" firstAttribute="bottom" secondItem="gaF-7r-dHZ" secondAttribute="bottom" id="ikm-Rc-GO9"/>
+                <constraint firstItem="DBQ-ul-rP4" firstAttribute="centerY" secondItem="7zK-2y-i8f" secondAttribute="centerY" id="mlh-7d-Fd5"/>
+                <constraint firstItem="gaF-7r-dHZ" firstAttribute="top" secondItem="7zK-2y-i8f" secondAttribute="top" id="msc-0n-DtM"/>
+                <constraint firstItem="PSg-vV-Uq9" firstAttribute="centerY" secondItem="gaF-7r-dHZ" secondAttribute="centerY" id="q4f-zB-SG7"/>
+                <constraint firstItem="PSg-vV-Uq9" firstAttribute="leading" secondItem="gaF-7r-dHZ" secondAttribute="trailing" constant="10" id="wjD-p7-e1B"/>
+            </constraints>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <point key="canvasLocation" x="-403" y="44"/>
+        </view>
+    </objects>
+    <resources>
+        <image name="07f3fdeaaf7c7c55c061" width="300" height="300"/>
+        <image name="pause.circle.fill" catalog="system" width="128" height="121"/>
+        <namedColor name="AccentColor">
+            <color red="0.20399998128414154" green="0.77999997138977051" blue="0.34899997711181641" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <systemColor name="secondaryLabelColor">
+            <color red="0.23529411764705882" green="0.23529411764705882" blue="0.2627450980392157" alpha="0.59999999999999998" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+    </resources>
+</document>

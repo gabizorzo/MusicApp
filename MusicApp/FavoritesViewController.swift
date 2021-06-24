@@ -16,6 +16,13 @@ class FavoritesViewController: UIViewController, UITableViewDataSource, UITableV
     
     private var favorites: [Music] = []
     
+    @IBOutlet weak var nowPlayingView: NowPlayingView!
+    
+    @IBOutlet weak var nowPlayingViewLine: UIView!
+    
+    
+    var playingMusic: Music?
+    
     let emptyImage = UIImageView(image: UIImage(named: "emptystatefavorites"))
     
     
@@ -26,6 +33,9 @@ class FavoritesViewController: UIViewController, UITableViewDataSource, UITableV
         tableView.delegate = self
         searchBar.delegate = self
         
+        nowPlayingView.isUserInteractionEnabled = true
+        nowPlayingView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(playingTapped(tapGestureRecognizer:))))
+        
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -33,14 +43,30 @@ class FavoritesViewController: UIViewController, UITableViewDataSource, UITableV
         
         loadFavorites()
         
+        guard let playMusic = LibraryTableView.service.queue.nowPlaying else {
+            nowPlayingViewLine.isHidden = true
+            nowPlayingView.isHidden = true
+            return
+        }
+        
+        nowPlayingViewLine.isHidden = false
+        nowPlayingView.isHidden = false
+        nowPlayingView.music = playMusic
+        nowPlayingView.artistLabel.text = playMusic.artist
+        nowPlayingView.coverImage.image = UIImage(named: playMusic.id)
+        nowPlayingView.songLabel.text = playMusic.title
+        
         tableView.reloadData()
+    }
+    
+    @objc func playingTapped(tapGestureRecognizer: UITapGestureRecognizer) {
+        performSegue(withIdentifier: "FavoritesToPlaying", sender: nowPlayingView.music)
     }
     
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         loadFavorites()
         
         if !searchText.isEmpty {
-            print(searchText)
             self.favorites = self.favorites.filter({ music in
                 return music.title.lowercased().contains(searchText.lowercased()) ||  music.artist.lowercased().contains(searchText.lowercased())
             })
@@ -102,7 +128,12 @@ class FavoritesViewController: UIViewController, UITableViewDataSource, UITableV
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        performSegue(withIdentifier: "FavoritesToPlaying", sender: favorites[indexPath.row])
+        
+        let playMusic = favorites[indexPath.row]
+        
+        LibraryTableView.service.startPlaying(music: playMusic)
+        
+        viewWillAppear(false)
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {

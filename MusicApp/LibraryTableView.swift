@@ -9,6 +9,7 @@ import UIKit
 
 class LibraryTableView: UIViewController, UITableViewDataSource, UITableViewDelegate {
 
+
     @IBOutlet weak var tableView: UITableView!
     
     public static var service: MusicService = try! MusicService()
@@ -16,11 +17,34 @@ class LibraryTableView: UIViewController, UITableViewDataSource, UITableViewDele
     private var musicCollections: [MusicCollection] = service.loadLibrary()
     
     
+    @IBOutlet weak var nowPlayingView: NowPlayingView!
+    
+    @IBOutlet weak var nowPlayingViewLine: UIView!
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
         tableView.dataSource = self
         tableView.delegate = self
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        guard let playMusic = LibraryTableView.service.queue.nowPlaying else {
+            nowPlayingViewLine.isHidden = true
+            nowPlayingView.isHidden = true
+            return
+        }
+        
+        nowPlayingViewLine.isHidden = false
+        nowPlayingView.isHidden = false
+        nowPlayingView.music = playMusic
+        nowPlayingView.artistLabel.text = playMusic.artist
+        nowPlayingView.coverImage.image = UIImage(named: playMusic.id)
+        nowPlayingView.songLabel.text = playMusic.title
+        
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -50,6 +74,8 @@ class LibraryTableView: UIViewController, UITableViewDataSource, UITableViewDele
         
         guard let nextViewController = segue.destination as? DetailsViewController else { return }
         nextViewController.collection = collection
+        
+        nextViewController.previousScreen = self
         
     }
     
